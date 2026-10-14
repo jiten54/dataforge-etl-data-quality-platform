@@ -1,0 +1,15 @@
+customer_id,first_name,last_name,email,phone,city,state,country,postal_code,registration_date
+101,Sarah,Jenkins,sarah.jenkins@athenatech.io,555-0101,Austin,TX,USA,78701,2023-01-15 08:30:00
+102,Marcus,Vance,marcus.vance@workplace.net,555-0102,Seattle,WA,USA,98101,2023-02-10 14:22:10
+103,Elena,Rostova,elena.rostova@cloudcorp.com,555-0103,New York,NY,USA,10001,2023-03-05 11:15:45
+104,David,Kim,david.kim@nexusdata.org,555-0104,San Francisco,CA,USA,94105,2023-04-18 09:40:00
+105,Amira,Patel,amira.patel@horizonfin.com,555-0105,Chicago,IL,USA,60601,2023-05-22 16:55:00
+106,Lucas,Mendes,lucas.mendes@braziltech.br,555-0106,Boston,MA,USA,02108,2023-06-30 10:12:30
+107,Chloe,Dubois,chloe.dubois@parisdev.fr,555-0107,Denver,CO,USA,80202,2023-07-14 13:05:00
+108,James,Wilson,james.wilson@summitlogistics.com,555-0108,Atlanta,GA,USA,30303,2023-08-01 17:30:20
+109,Yuki,Tanaka,yuki.tanaka@tokyometrics.jp,555-0109,Portland,OR,USA,97201,2023-09-19 12:45:00
+110,Devon,Brooks,devon.brooks@apexanalytics.io,555-0110,Dallas,TX,USA,75201,2023-10-05 15:20:10
+104,David,Kim,david.kim.updated@nexusdata.org,555-0104,San Francisco,CA,USA,94105,2023-04-18 09:40:00
+,Ghost,User,ghost.user@domain.com,555-0999,Unknown,CA,USA,90001,2023-11-01 12:00:00
+111,Corrupt,EmailUser,corrupt_email_without_at_symbol,555-0111,Miami,FL,USA,33101,2023-11-12 18:20:00
+112,Bad,DomainUser,bad.user@nodomain,555-0112,Phoenix,AZ,USA,85001,2023-12-01 09:00:00

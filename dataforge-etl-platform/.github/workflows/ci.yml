@@ -1,0 +1,62 @@
+name: DataForge CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: dataforge_root_password_2026
+          MYSQL_DATABASE: dataforge_test_dw
+          MYSQL_USER: dataforge_user
+          MYSQL_PASSWORD: dataforge_secure_pass_2026
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Linting (Flake8 & Mypy)
+        run: |
+          flake8 src tests --max-line-length=120 --ignore=E501,W503 || true
+          mypy src --ignore-missing-imports || true
+
+      - name: Run Schema Migration on MySQL
+        run: |
+          mysql -h 127.0.0.1 -u dataforge_user -pdataforge_secure_pass_2026 dataforge_test_dw < sql/schema.sql
+
+      - name: Run Unit & Integration Tests with Pytest
+        env:
+          TEST_MYSQL_HOST: 127.0.0.1
+          TEST_MYSQL_PORT: 3306
+          TEST_MYSQL_USER: dataforge_user
+          TEST_MYSQL_PASSWORD: dataforge_secure_pass_2026
+          TEST_MYSQL_DATABASE: dataforge_test_dw
+        run: |
+          pytest tests/ -v --cov=src --cov-report=term-missing --cov-report=xml
+
+      - name: Upload Test Coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: code-coverage-report
+          path: coverage.xml

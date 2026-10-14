@@ -1,0 +1,61 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: dataforge-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: dataforge_root_password_2026
+      MYSQL_DATABASE: dataforge_dw
+      MYSQL_USER: dataforge_user
+      MYSQL_PASSWORD: dataforge_secure_pass_2026
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./sql/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "dataforge_user", "-pdataforge_secure_pass_2026"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: .
+    container_name: dataforge-api
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_USER: dataforge_user
+      MYSQL_PASSWORD: dataforge_secure_pass_2026
+      MYSQL_DATABASE: dataforge_dw
+      API_HOST: 0.0.0.0
+      API_PORT: 8000
+    ports:
+      - "8000:8000"
+    command: ["uvicorn", "src.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+  dashboard:
+    build: .
+    container_name: dataforge-dashboard
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_USER: dataforge_user
+      MYSQL_PASSWORD: dataforge_secure_pass_2026
+      MYSQL_DATABASE: dataforge_dw
+    ports:
+      - "8501:8501"
+    command: ["streamlit", "run", "dashboard/app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+
+volumes:
+  mysql_data:

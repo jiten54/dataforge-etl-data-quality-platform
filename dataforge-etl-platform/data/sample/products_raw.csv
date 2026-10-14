@@ -1,0 +1,12 @@
+product_id,sku,product_name,category,unit_price,cost_price,stock_quantity,is_discontinued
+201,TECH-001,UltraWide 34in Monitor,Electronics,499.99,310.00,45,0
+202,TECH-002,Mechanical Ergonomic Keyboard,Electronics,129.50,65.00,120,0
+203,TECH-003,Noise-Cancelling Studio Headset,Audio,249.00,120.00,75,0
+204,FURN-001,Adjustable Standing Desk 60in,Office Furniture,599.00,340.00,30,0
+205,FURN-002,High-Back Lumbar Mesh Chair,Office Furniture,349.99,185.00,60,0
+206,ACC-001,Thunderbolt 4 Docking Hub,Accessories,189.95,95.00,110,0
+207,ACC-002,Braided USB-C Cable 2m,Accessories,19.99,4.50,450,0
+208,ACC-003,Wireless Precision Trackball,Accessories,89.00,42.00,85,0
+209,BAD-001,Negative Price Defect Widget,Hardware,-45.00,20.00,10,0
+,MISS-SKU,Missing SKU Product,Hardware,99.99,50.00,25,0
+210,,Empty SKU Null Value,Hardware,79.99,35.00,15,0

@@ -1,0 +1,6 @@
+{
+  "name": "DataForge — Automated ETL & Data Quality Platform",
+  "description": "Production-grade, portfolio-ready ETL/ELT data engineering platform tailored for Athena Tech with automated validation, idempotent MySQL loading, pytest suite, and monitoring.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
